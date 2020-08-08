@@ -1,0 +1,11 @@
+*.bak
+*.pyc
+*~
+__pycache__
+.env
+venv
+static
+.DS_Store
+psd
+EShop_diagram.drawio
+EShop_diagram.jpg
