@@ -16,6 +16,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+"""Кастомізація сайту адміністратора"""
+admin.site.site_header = 'EShop'
+admin.site.site_title = 'Адміністрування'
+admin.site.index_title = 'Головна'
+admin.sites.AdminSite.enable_nav_sidebar = False
+
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('products.urls'))

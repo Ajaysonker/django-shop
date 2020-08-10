@@ -2,19 +2,6 @@ from django.contrib import admin
 from .models import Product, ProductImage, ProductManufacturer
 
 
-"""Кастомізація сайту адміністратора"""
-admin.site.site_header = 'EShop'
-admin.site.site_title = 'Адміністрування'
-admin.site.index_title = 'Головна'
-
-
-# @admin.register(ProductImage)
-# class ProductImageAdmin(admin.ModelAdmin):
-#     """Меню Фотографій в адмінці."""
-#     list_display = ('__str__', 'image_url', 'created_at', 'updated_at')
-#     search_fields = ['product__name']
-
-
 class ProductImageInline(admin.TabularInline):
     """Меню Фотографій, зв'язаних з обраним товаром в адмінці."""
     model = ProductImage
@@ -33,7 +20,6 @@ class ProductAdmin(admin.ModelAdmin):
     inlines = [
         ProductImageInline,
     ]
-
 
 
 @admin.register(ProductManufacturer)

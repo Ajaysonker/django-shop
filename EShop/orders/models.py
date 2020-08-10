@@ -68,4 +68,3 @@ class ProductInOrder(models.Model):
             total_price += order.total_price
         self.order.total_price = total_price
         self.order.save()
-

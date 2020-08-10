@@ -21,8 +21,3 @@ class OrderAdmin(admin.ModelAdmin):
     inlines = [
         ProductInOrderInline
     ]
-
-# @admin.register(ProductInOrder)
-# class ProductInOrderAdmin(admin.ModelAdmin):
-#     """Меню Замовлення в адмінці"""
-#     list_display = ('order', 'product', 'quantity', 'price_per_item', 'total_price')
