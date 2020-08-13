@@ -3,7 +3,11 @@
 <html lang="ru">
 
 <head>
-  <title>EShop</title>
+  <title>
+    {% block title %}
+    EShop
+    {% endblock %}
+  </title>
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -33,7 +37,7 @@
           <div class="col mr-5">
             <a href="#">
               <div class="basket-wrapper float-right">
-                <img src="{% static 'main/svg/shopping-basket.svg' %}" width="23" alt="phone">
+                <img src="{% static 'main/svg/shopping-basket.svg' %}" width="23" alt="basket">
                 <div class="product-in-basket float-right text-center">5</div>
               </div>
             </a>
@@ -60,9 +64,11 @@
                     <span style="color: #2a2a2a">Вибрати категорію</span>
                   </a>
                   <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="#">Action</a>
-                    <a class="dropdown-item" href="#">Another action</a>
-                    <a class="dropdown-item" href="#">Something else here</a>
+                    <a class="dropdown-item" href="{% url 'products_list_url' %}">Всі товари</a>
+                    <a class="dropdown-item" href="#">Освітлення</a>
+                    <a class="dropdown-item" href="#">Розетки</a>
+                    <a class="dropdown-item" href="#">Тепла підлога</a>
+                    <a class="dropdown-item" href="#">Захист електромереж</a>
                   </div>
                 </li>
 
@@ -79,13 +85,16 @@
             <div class="col-6 right-navbar">
               <ul class="navbar-nav justify-content-end">
                 <li class="nav-item btn px-lg-0 px-sm-2">
-                  <a class="nav-link text-left" href="#">ТЕПЛА ПІДЛОГА</a>
+                  <a class="nav-link text-left" href="#">ГОЛОВНА</a>
                 </li>
                 <li class="nav-item btn px-lg-0 px-sm-2">
                   <a class="nav-link text-left" href="#">ОСВІТЛЕННЯ</a>
                 </li>
                 <li class="nav-item btn px-lg-0 px-sm-2">
                   <a class="nav-link text-left" href="#">РОЗЕТКИ</a>
+                </li>
+                <li class="nav-item btn px-lg-0 px-sm-2">
+                  <a class="nav-link text-left" href="#">ПІДЛОГА</a>
                 </li>
                 <li class="nav-item btn px-lg-0 px-sm-2">
                   <a class="nav-link text-left" href="#">ЗАХИСТ</a>
@@ -99,9 +108,9 @@
     </div>
   </header>
 
-  <main>
-
-  </main>
+  {% block content %}
+  <h1 class="text-center">Шото пошло не так :(</h1>
+  {% endblock %}
 
   <footer>
 
