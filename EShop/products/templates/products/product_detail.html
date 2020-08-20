@@ -1,22 +1,39 @@
 {% extends 'base.html' %}
 {% load static %}
+
 {% block title %}
 {{ block.super }} - {{ product.name }}
 {% endblock %}
 
+{% block style %}
+<link rel="stylesheet" href="{% static 'products/css/product_detail.css' %}">
+{% endblock%}
+
 {% block content %}
-<div class="background-style">
-</div>
+<div class="background-style"></div>
 <main>
     <div class="container position-relative product_detail_container">
-        <div class="row">
-            <div class="col-5 text-center">
-                {% for image in product.productimage_set.all|slice:':1' %}
-                <img src="/{{ image.image_url }}" class="mt-3" width="300" alt="product">
-                {% endfor %}
+        <div class="row pt-2">
+            <div class="col-lg-6">
+                <div class="slider-wrapper">
+                    <div class="main-slide mb-3">
+                        {% for image in product.productimage_set.all %}
+                        <div class="main-slide__item">
+                            <img data-lazy="{{ image.image.url }}" class="img-fluid" alt="product"/>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <div class="slider-nav mx-5">
+                        {% for image in product.productimage_set.all %}
+                        <div class="slider-nav__item">
+                            <img src="{{ image.image.url }}" class="img-fluid" alt="Фото {{ product.name }}">
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
             </div>
-            <div class="col-7">
-                <div class="card border-right-0 border-left-0 product-detail">
+            <div class="col-lg-6">
+                <div class="card border-right-0 border-top-0 border-left-0 product-detail">
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item">
                             <h2>{{ product.name }}</h3>
@@ -28,7 +45,7 @@
                             <form action="">
                                 <button type="button" class="btn btn-secondary btn-sm float-left btn-basket">
                                     <img src="{% static 'main/svg/shopping-basket.svg' %}" alt="basket">
-                                    <span style="font-weight: 600;">В КОРЗИНУ</span>
+                                    <span>В КОРЗИНУ</span>
                                 </button>
                             </form>
                         </li>
@@ -60,4 +77,8 @@
         </div>
     </div>
 </main>
+{% endblock %}
+
+{% block script %}
+<script type="text/javascript" src="{% static 'products/js/slick.min.js' %}"></script>
 {% endblock %}

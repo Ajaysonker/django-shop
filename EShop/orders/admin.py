@@ -9,8 +9,8 @@ class ProductInOrderInline(admin.TabularInline):
 @admin.register(Customer)
 class CustomerAdmin(admin.ModelAdmin):
     """Меню Клієнта в адмінці"""
-    list_display = ('customer_name', 'customer_phone', 'customer_email', 'customer_address')
-    search_fields = ['customer_name', 'customer_phone', 'customer_email']
+    list_display = ('first_name', 'last_name', 'phone', 'email', 'address')
+    search_fields = ['first_name', 'last_name', 'phone', 'email']
 
 
 @admin.register(Order)

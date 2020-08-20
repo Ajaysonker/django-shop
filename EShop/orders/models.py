@@ -4,15 +4,16 @@ from products.models import Product
 
 # Create your models here.
 class Customer(models.Model):
-    customer_name = models.CharField(max_length=60, db_index=True, verbose_name="ім'я")
-    customer_phone = models.CharField(max_length=40, db_index=True, verbose_name='номер телефону')
-    customer_email = models.EmailField(max_length=60, db_index=True, blank=True, verbose_name='емейл')
-    customer_address = models.TextField(max_length=160, verbose_name='адреса')
+    first_name = models.CharField(max_length=60, db_index=True, null=True, verbose_name="ім'я")
+    last_name = models.CharField(max_length=60, db_index=True, null=True, verbose_name="прізвище")
+    phone = models.CharField(max_length=40, db_index=True, null=True, verbose_name='номер телефону')
+    email = models.EmailField(max_length=60, db_index=True, blank=True, null=True, verbose_name='емейл')
+    address = models.TextField(max_length=160, null=True, verbose_name='адреса')
     create_at = models.DateTimeField(auto_now_add=True, verbose_name='дата заповнення')
     update_at = models.DateTimeField(auto_now=True, verbose_name='дата оновлення')
 
     def __str__(self):
-        return f'{self.customer_phone}({self.customer_name})'
+        return f'{self.phone}({self.first_name})'
 
     class Meta:
         verbose_name = 'клієнт'
@@ -36,7 +37,7 @@ class Order(models.Model):
     update_at = models.DateTimeField(auto_now=True, verbose_name='дата оновлення')
 
     def __str__(self):
-        return f'{self.customer.id} - {self.customer.customer_phone}({self.customer.customer_name})'
+        return f'{self.customer.id} - {self.customer.phone}({self.customer.first_name})'
 
     class Meta:
         verbose_name = 'замовлення'

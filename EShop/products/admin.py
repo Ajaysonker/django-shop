@@ -2,15 +2,16 @@ from django.contrib import admin
 from .models import Product, ProductImage, ProductManufacturer
 
 
-# @admin.register(ProductImage)
-# class ProductImageAdmin(admin.ModelAdmin):
-#     pass
+@admin.register(ProductImage)
+class ProductImageAdmin(admin.ModelAdmin):
+    pass
+
 
 class ProductImageInline(admin.TabularInline):
     """Меню Фотографій, зв'язаних з обраним товаром в адмінці."""
     model = ProductImage
     extra = 0
-    max_num = 3
+    max_num = 6
     min_num = 1
     readonly_fields = ('admin_product_image',)
 
