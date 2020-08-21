@@ -10,6 +10,7 @@ def products_list(request):
     }
     return render(request, 'products/products_list.html', context=context)
 
+
 def product_detail(request, slug):
     product = Product.objects.get(slug__iexact=slug)
     context = {

@@ -39,7 +39,7 @@
             <h1 class="logo">EShop</h1>
           </div>
           <div class="col-4 d-flex justify-content-end pl-0 pr-2">
-            <a href="#" class="d-flex justify-content-center align-items-center basket-wrapper">
+            <a href="{% url 'order_cart_url' %}" class="d-flex justify-content-center align-items-center basket-wrapper">
               <img src="{% static 'main/svg/shopping-basket.svg' %}" width="23" alt="basket">
               <span class="products-in-basket text-center">+</span>
             </a>
