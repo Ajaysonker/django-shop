@@ -17,16 +17,22 @@
             <div class="col-lg-6">
                 <div class="slider-wrapper">
                     <div class="main-slide mb-3">
-                        {% for image in product.productimage_set.all %}
                         <div class="main-slide__item">
-                            <img data-lazy="{{ image.image.url }}" class="img-fluid" alt="product"/>
+                            <img data-lazy="{{ product.main_imageURL }}" class="img-fluid" alt="product"/>
+                        </div>
+                        {% for image in product.gallery.all %}
+                        <div class="main-slide__item">
+                            <img data-lazy="{{ image.slideURL }}" class="img-fluid" alt="product"/>
                         </div>
                         {% endfor %}
                     </div>
                     <div class="slider-nav mx-5">
-                        {% for image in product.productimage_set.all %}
                         <div class="slider-nav__item">
-                            <img src="{{ image.image.url }}" class="img-fluid" alt="Фото {{ product.name }}">
+                            <img src="{{ product.main_imageURL }}" class="img-fluid" alt="Фото {{ product.name }}">
+                        </div>
+                        {% for image in product.gallery.all %}
+                        <div class="slider-nav__item">
+                            <img src="{{ image.slideURL }}" class="img-fluid" alt="Фото {{ product.name }}">
                         </div>
                         {% endfor %}
                     </div>
@@ -66,9 +72,16 @@
                             </p>
                             <p>
                                 <b>Категорія:</b>
-                                <span class="text-muted category">
-                                    ще не зробив :\
-                                </span>
+                                {% for category in product.categories.all %}
+                                        {% if category.is_child_node %}
+                                            <a href="{{ category.parent.get_absolute_url}}" alt='{{ category.parent.name }}'>
+                                                <span class="text-muted category">{{ category.parent.name }},</span>
+                                            </a>
+                                        {% endif %}
+                                    <a href="{{ category.get_absolute_url}}" alt='{{ category.name }}'>
+                                        <span class="text-muted category">{{ category.name }}</span>
+                                    </a>
+                                {% endfor %}
                             </p>
                         </li>
                     </ul>

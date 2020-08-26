@@ -14,8 +14,13 @@
     <div class="container">
         <div class="row" style="background: #363636; color: #ffffff;">
             <div class="col text-center py-3">
-                <h1>МІСЦЕ ДЛЯ КОТИКІВ <img src="https://i.kym-cdn.com/photos/images/newsfeed/000/991/648/b07.jpg"
-                        style="border-radius: 50%;" width="150" alt=""></h1>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
             </div>
         </div>
     </div>
@@ -26,11 +31,9 @@
                     {% for product in products %}
                     <div class="col-md-6 col-xl-4 mb-4">
                         <div class="card border-0 product-card">
-                            {% for image in product.productimage_set.all|slice:':1' %}
                             <a href="{{ product.get_absolute_url }}" class="mx-auto">
-                                <img src="{{ image.image.url }}" class="card-img-top mb-3" alt="product">
+                                <img src="{{ product.main_imageURL }}" class="card-img-top mb-3" alt="product">
                             </a>
-                            {% endfor %}
                             <form class="d-flex justify-content-between px-2">
                                 <button type="button" class="btn btn-secondary btn-sm w-100 mr-2">Детальніше</button>
                                 <button type="button" class="btn btn-secondary btn-sm w-100 ml-2 btn-basket">
