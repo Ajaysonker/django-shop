@@ -18,11 +18,11 @@
                 <div class="slider-wrapper">
                     <div class="main-slide mb-3">
                         <div class="main-slide__item">
-                            <img data-lazy="{{ product.main_imageURL }}" class="img-fluid" alt="product"/>
+                            <img data-lazy="{{ product.main_imageURL }}" class="img-fluid" alt="product" />
                         </div>
                         {% for image in product.gallery.all %}
                         <div class="main-slide__item">
-                            <img data-lazy="{{ image.slideURL }}" class="img-fluid" alt="product"/>
+                            <img data-lazy="{{ image.slideURL }}" class="img-fluid" alt="product" />
                         </div>
                         {% endfor %}
                     </div>
@@ -49,10 +49,15 @@
                         </li>
                         <li class="list-group-item">
                             <form action="">
-                                <button type="button" class="btn btn-secondary btn-sm float-left btn-basket">
-                                    <img src="{% static 'main/svg/shopping-basket.svg' %}" alt="basket">
-                                    <span>В КОРЗИНУ</span>
-                                </button>
+                                <div class="add-to-cart form-group row mx-0">
+                                    <button type="button" class="btn btn-secondary float-left btn-cart"
+                                        data-toggle="modal" data-target="#productDetailModal">
+                                        <img src="{% static 'main/svg/shopping-basket.svg' %}" alt="basket">
+                                        <span>ДОБАВИТИ В КОРЗИНУ</span>
+                                    </button>
+                                    <!-- Modal -->
+                                    {% include 'products/includes/product_add_modal.html' %}
+                                </div>
                             </form>
                         </li>
                         <li class="list-group-item detail-description">
@@ -73,14 +78,14 @@
                             <p>
                                 <b>Категорія:</b>
                                 {% for category in product.categories.all %}
-                                        {% if category.is_child_node %}
-                                            <a href="{{ category.parent.get_absolute_url}}" alt='{{ category.parent.name }}'>
-                                                <span class="text-muted category">{{ category.parent.name }},</span>
-                                            </a>
-                                        {% endif %}
-                                    <a href="{{ category.get_absolute_url}}" alt='{{ category.name }}'>
-                                        <span class="text-muted category">{{ category.name }}</span>
-                                    </a>
+                                {% if category.is_child_node %}
+                                <a href="{{ category.parent.get_absolute_url}}" alt='{{ category.parent.name }}'>
+                                    <span class="text-muted category">{{ category.parent.name }},</span>
+                                </a>
+                                {% endif %}
+                                <a href="{{ category.get_absolute_url}}" alt='{{ category.name }}'>
+                                    <span class="text-muted category">{{ category.name }}</span>
+                                </a>
                                 {% endfor %}
                             </p>
                         </li>
@@ -94,4 +99,5 @@
 
 {% block script %}
 <script type="text/javascript" src="{% static 'products/js/slick.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'products/js/slider_settings.js' %}"></script>
 {% endblock %}

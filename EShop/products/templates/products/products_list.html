@@ -35,11 +35,13 @@
                                 <img src="{{ product.main_imageURL }}" class="card-img-top mb-3" alt="product">
                             </a>
                             <form class="d-flex justify-content-between px-2">
-                                <button type="button" class="btn btn-secondary btn-sm w-100 mr-2">Детальніше</button>
-                                <button type="button" class="btn btn-secondary btn-sm w-100 ml-2 btn-basket">
+                                <a href="{{ product.get_absolute_url }}"type="button" class="btn btn-secondary btn-sm w-100 mr-2">Детальніше</a>
+                                <button type="button" class="btn btn-secondary btn-sm w-100 ml-2 btn-basket" id="addCart"
+                                product_id='{{ product.id }}' data-toggle="modal" data-target="#productDetailModal">
                                     <img src="{% static 'main/svg/shopping-basket.svg' %}" alt="basket">
                                     <span>В КОРЗИНУ</span>
                                 </button>
+                                {% include 'products/includes/product_add_modal.html' %}
                             </form>
                             <div class="list-group border border-top-0">
                                 <div class="card-body">

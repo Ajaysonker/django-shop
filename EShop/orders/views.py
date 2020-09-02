@@ -1,10 +1,12 @@
 from django.shortcuts import render
-from .models import Customer, Order, ProductInOrder
+from django.views import View
 # Create your views here.
 
 
-def order_cart(request):
-    return render(request, 'orders/order_cart.html')
+# class CartView(View):
+#
+#     def get(self, request):
+#         return render(request, 'orders/order_cart.html')
 
 
 def order_checkout(request):
