@@ -3,11 +3,5 @@ from django.views import View
 # Create your views here.
 
 
-# class CartView(View):
-#
-#     def get(self, request):
-#         return render(request, 'orders/order_cart.html')
-
-
 def order_checkout(request):
     return render(request, 'orders/order_checkout.html')

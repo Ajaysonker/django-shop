@@ -1,3 +1,4 @@
+import json
 from django.db import models
 from django.shortcuts import reverse
 from mptt.models import MPTTModel, TreeForeignKey
@@ -46,6 +47,16 @@ class Product(models.Model):
         except:
             url = '/static/main/png/NO_IMG.png'
         return url
+
+    def get_json_data(self):
+        data = {
+            'id': str(self.id),
+            'name': self.name,
+            'image': str(self.main_imageURL),
+            'price': str(self.price),
+        }
+        json_data = json.dumps(data, ensure_ascii=False)
+        return json_data
 
 
 class ProductSlide(models.Model):

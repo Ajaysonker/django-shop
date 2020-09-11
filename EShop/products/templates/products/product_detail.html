@@ -51,7 +51,7 @@
                             <form action="">
                                 <div class="add-to-cart form-group row mx-0">
                                     <button type="button" class="btn btn-secondary float-left btn-cart"
-                                        data-toggle="modal" data-target="#productDetailModal">
+                                        data-toggle="modal" data-target="#productDetailModal" product_data='{{ product.get_json_data }}'>
                                         <img src="{% static 'main/svg/shopping-basket.svg' %}" alt="basket">
                                         <span>ДОБАВИТИ В КОРЗИНУ</span>
                                     </button>

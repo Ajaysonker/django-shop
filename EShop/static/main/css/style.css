@@ -32,6 +32,22 @@ input[type="number"]::-webkit-outer-spin-button {
 input[type="number"] {
   -moz-appearance: textfield;
 }
+.btn{
+    font-weight: 500;
+    font-size: 12px;
+    background: #2a2a2a;
+    border: 1px solid #2a2a2a;
+    border-radius: 0;
+    transition: 0.3s;
+}
+.btn:active{
+    background: #2a2a2a;
+    border: 1px solid #2a2a2a;
+}
+.btn:hover{
+    background: #d58e35;
+    border: 1px solid #2a2a2a;
+}
 .header{
     background: #363636;
 }
@@ -110,8 +126,7 @@ input[type="number"] {
     border: 1px solid #d58e35;
 }
 .search-box .btn{
-    border: 1px solid #d58e35;
-    border-radius: 0;
+    background: #ffffff;
 }
 .search-box .btn:hover{
     background: #d58e35;
@@ -138,7 +153,26 @@ input[type="number"] {
   }
 
  /* Cart */
-
+ .cart-product-tittle{
+    font-size: 22px;
+    font-weight: 600;
+}
+.price{
+    background: #2a2a2a;
+    padding: 3px 5px;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 500;
+    transition: 0.3s;
+}
+.product-detail, .list-group-item{
+    padding: .75rem 0;
+}
+.btn-cart img{
+    width: 15px;
+    position: relative;
+    bottom: 2px; right: 3px;
+}
  .quantity-label{
     font-size: 14px;
     font-weight: 500;

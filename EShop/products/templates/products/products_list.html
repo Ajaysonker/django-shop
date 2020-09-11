@@ -14,13 +14,13 @@
     <div class="container">
         <div class="row" style="background: #363636; color: #ffffff;">
             <div class="col text-center py-3">
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
             </div>
         </div>
     </div>
@@ -32,16 +32,18 @@
                     <div class="col-md-6 col-xl-4 mb-4">
                         <div class="card border-0 product-card">
                             <a href="{{ product.get_absolute_url }}" class="mx-auto">
-                                <img src="{{ product.main_imageURL }}" class="card-img-top mb-3" alt="product">
+                                <img src="{{ product.main_imageURL }}" class="card-img-top mb-3 product-card-img"
+                                    alt="product">
                             </a>
                             <form class="d-flex justify-content-between px-2">
-                                <a href="{{ product.get_absolute_url }}"type="button" class="btn btn-secondary btn-sm w-100 mr-2">Детальніше</a>
-                                <button type="button" class="btn btn-secondary btn-sm w-100 ml-2 btn-basket" id="addCart"
-                                product_id='{{ product.id }}' data-toggle="modal" data-target="#productDetailModal">
-                                    <img src="{% static 'main/svg/shopping-basket.svg' %}" alt="basket">
+                                <a href="{{ product.get_absolute_url }}" type="button"
+                                    class="btn btn-secondary btn-sm w-100 mr-2">Детальніше</a>
+                                <button type="button" class="btn btn-secondary btn-sm w-100 ml-2 btn-cart"
+                                    product_data='{{ product.get_json_data }}' data-toggle="modal"
+                                    data-target="#productDetailModal">
+                                    <img src="{% static 'main/svg/shopping-basket.svg' %}" alt="cart">
                                     <span>В КОРЗИНУ</span>
                                 </button>
-                                {% include 'products/includes/product_add_modal.html' %}
                             </form>
                             <div class="list-group border border-top-0">
                                 <div class="card-body">
@@ -63,5 +65,6 @@
             </div>
         </div>
     </div>
+    {% include 'products/includes/product_add_modal.html' %}
 </main>
 {% endblock %}

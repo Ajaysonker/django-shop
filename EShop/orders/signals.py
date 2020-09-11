@@ -6,9 +6,11 @@ from .models import ProductInOrder
 
 @receiver(post_delete, sender=ProductInOrder)
 def post_delete_order_total_price(sender, instance, **kwargs):
-    all_product_in_order = ProductInOrder.objects.filter(order=instance.order)
-    total_price = 0
-    for order in all_product_in_order:
-        total_price += order.total_price
-    order.total_price = total_price
-    order.save()
+    all_products_in_order = ProductInOrder.objects.filter(order=instance.order)
+
+    if all_products_in_order:
+        total_price = 0
+        for products in all_products_in_order:
+            total_price += products.total_price
+        products.total_price = total_price
+        products.save()
