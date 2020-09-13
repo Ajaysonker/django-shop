@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'mptt',
+    'phonenumber_field',
     'products',
     'orders',
 ]
@@ -116,7 +117,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
-LANGUAGE_CODE = 'ru'
+LANGUAGE_CODE = 'uk'
 
 TIME_ZONE = 'Europe/Kiev'
 
@@ -126,6 +127,7 @@ USE_L10N = True
 
 USE_TZ = True
 
+PHONENUMBER_DB_FORMAT = 'INTERNATIONAL'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/

@@ -27,7 +27,7 @@ class Product(models.Model):
     price = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='ціна')
     stock = models.PositiveIntegerField(null=True, verbose_name='на складі')
     is_active = models.BooleanField(default=False, verbose_name='продається')
-    created_at = models.DateTimeField(auto_now_add=True, verbose_name='дата добавлення')
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name='датою добавлення')
     updated_at = models.DateTimeField(auto_now=True, verbose_name='дата оновлення')
 
     def __str__(self):
@@ -120,7 +120,7 @@ class Category(MPTTModel):
         return self.name
 
     class Meta:
-        verbose_name = 'категорія'
+        verbose_name = 'категорію'
         verbose_name_plural = 'категорії'
 
     class MPTTMeta:

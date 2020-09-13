@@ -5,14 +5,13 @@ $(function () {
     // Відображення загальної кількості товару в корзині на сайті.
     let $ProductInBasket = $('.products-in-basket');
     let sum_quantity = 0;
-    let key, value;
 
-    for (let i = 0; i < localStorage.length; i++) {
-      key = localStorage.key(i);
-      value = localStorage.getItem(key);
-      product_data = JSON.parse(value);
-      sum_quantity = sum_quantity + +product_data.quantity;
-    }
+    let value = localStorage.getItem('Cart');
+    let Cart = JSON.parse(value);
+
+    $.each(Cart, function (product) {
+      sum_quantity += +Cart[product].quantity;
+    })
 
     $ProductInBasket.text(sum_quantity);
   }
@@ -23,6 +22,8 @@ $(function () {
 
     $('.btn-cart').click(function modalDataRender() {
       // Заповнення модальної форми, добавлення товару в корзину.
+      $('.modal-dialog-delete').hide();
+      $('.modal-dialog-add').show();
       let str_product_data = $(this).attr('product_data');
       let product_data = JSON.parse(str_product_data);
 
@@ -44,12 +45,6 @@ $(function () {
       price = +product_data.price;
       quantity = +$quantityNum.val();
       modalTotalPrice();
-
-      // декор
-      if ($quantityNum.val() < 2) {
-        $('.svg-subtract').hide();
-        $('.svg-delete').show();
-      }
     })
 
     let $quantityNum = $(".quantity-num");
@@ -67,10 +62,21 @@ $(function () {
 
       let product_data = JSON.parse($('#addCart').attr('modal_product_data'));
       let quantity = $quantityNum.val();
-      let new_product_data = $.extend(product_data, { 'quantity': quantity });
+      delete product_data.id
+      product_data.quantity = quantity;
+      let Cart
+
+      if (localStorage.getItem('Cart') !== null) {
+        let str_Cart = localStorage.getItem('Cart');
+        Cart = JSON.parse(str_Cart)
+        Cart[id] = product_data;
+      } else {
+        Cart = Object.create({});
+        Cart[id] = product_data;
+      }
 
       if (quantity > 0) {
-        localStorage.setItem(id, JSON.stringify(new_product_data));
+        localStorage.setItem('Cart', JSON.stringify(Cart));
         totalQuantity();
       }
     }
@@ -78,41 +84,34 @@ $(function () {
     function deleteItem() {
       // Видалити товар з корзини.
       let id = $('#addCart').attr('modal_product_id');
-      localStorage.removeItem(id);
+      let str_Cart = localStorage.getItem('Cart');
+      let Cart = JSON.parse(str_Cart);
+      delete Cart[id]
+      localStorage.setItem('Cart', JSON.stringify(Cart));
       totalQuantity();
     }
 
-    $(".quantity-arrow-plus").click(function quantityPlus() {
-      //Збільшити кількість товару на 1.
+    $(".quantity-item-plus").click(function quantityPlus() {
+      //Кнопка: Збільшити кількість товару на 1.
       $quantityNum.val(+$quantityNum.val() + 1);
       addItem();
       modalTotalPrice();
-
-      // декор
-      if ($quantityNum.val() > 1) {
-        $('.svg-subtract').show()
-        $('.svg-delete').hide()
-      }
     })
 
-    $(".quantity-arrow-minus").click(function quantityMinus() {
-      //Зменшити кількість товару на 1 або видалити якщо кількість рівна нулю.
+    $(".quantity-item-minus").click(function quantityMinus() {
+      //Кнопка: Зменшити кількість товару на 1.
       if ($quantityNum.val() > 1) {
         $quantityNum.val(+$quantityNum.val() - 1);
         addItem();
-      } else if ($quantityNum.val() == 1) {
-        $quantityNum.val(+$quantityNum.val() - 1);
-        deleteItem();
-        $('#productDetailModal').modal('hide')
+        modalTotalPrice();
       }
+    })
 
-      modalTotalPrice();
-
-      // декор
-      if ($quantityNum.val() < 2) {
-        $('.svg-subtract').hide()
-        $('.svg-delete').show()
-      }
+    $(".quantity-item-delete").click(function modalDelete() {
+      //Кнопка: видалити товар з корзини.
+      deleteItem();
+      $('.modal-dialog-add').hide();
+      $('.modal-dialog-delete').show();
     })
   })();
 
@@ -124,23 +123,32 @@ $(function () {
     let $totalPrice = $('.total-price');
     let total_price = 0;
 
-    for (let i = 0; i < localStorage.length; i++) {
-      let key = localStorage.key(i);
-      let value = localStorage.getItem(key);
-      let product_data = JSON.parse(value);
+    let value = localStorage.getItem('Cart');
+    let Cart = JSON.parse(value);
+    $.each(Cart, function (product) {
       $CheckoutCart.append(
-      '<div class="row align-items-center cart-item">' +
-        '<div class="col h6">' + product_data.name + '</div>' + 
-        '<div class="col-2 px-0"><img src="'+ product_data.image +'" class="card-img" alt=""></div>' +
-        '<div class="col-3">' + product_data.price + '₴</div>' +
-        '<div class="col-1 px-0">' + product_data.quantity + '</div>' +
-      '</div>'
+        '<div class="row align-items-center cart-item">' +
+          '<div class="col h6">' + Cart[product].name + '</div>' +
+          '<div class="col-2 px-0"><img src="' + Cart[product].image + '" class="card-img" alt=""></div>' +
+          '<div class="col-3">' + Cart[product].price + '₴</div>' +
+          '<div class="col-1 px-0">' + Cart[product].quantity + '</div>' +
+        '</div>'
       );
-      total_price = total_price + (product_data.price * product_data.quantity);
-    }
+      total_price = total_price + (Cart[product].price * Cart[product].quantity);
+    })
 
     $totalPrice.text('Загальна вартість: ' + total_price.toFixed(2) + '₴');
   })();
+
+  //Передача даних корзини в форму перед відправкою на сервер.
+  // $('button[type=submit]').click(function(){
+  //   let str_Cart = localStorage.getItem('Cart');
+  //   let Cart = JSON.parse(str_Cart);
+  //   let clear_cart_data
+  //   $.each(Cart, function(id){
+  //     $(this).attr('cart-data')
+  //   })
+  // })
 });
 
 

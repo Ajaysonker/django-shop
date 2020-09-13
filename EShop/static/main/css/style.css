@@ -186,8 +186,9 @@ input[type="number"] {
     padding: 5px 14px;
     width: 68px; height: 37px;
 }
-.quantity-arrow-minus,
-.quantity-arrow-plus {
+.quantity-item-delete,
+.quantity-item-minus,
+.quantity-item-plus {
     background: #ffffff;
     border: 1px solid #000000;
     font-size: 20px;
@@ -197,8 +198,9 @@ input[type="number"] {
     transition: 0.2s;
     padding-bottom: 2px;;
 }
-.quantity-arrow-minus:hover,
-.quantity-arrow-plus:hover {
+.quantity-item-delete:hover,
+.quantity-item-minus:hover,
+.quantity-item-plus:hover {
     border: 1px solid #d58e35;
     color: #d58e35;
 }

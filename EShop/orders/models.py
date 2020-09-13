@@ -1,4 +1,5 @@
 from django.db import models
+from phonenumber_field import modelfields
 from products.models import Product
 
 
@@ -6,10 +7,10 @@ from products.models import Product
 class Customer(models.Model):
     first_name = models.CharField(max_length=60, db_index=True, null=True, verbose_name="ім'я")
     last_name = models.CharField(max_length=60, db_index=True, null=True, verbose_name="прізвище")
-    phone = models.CharField(max_length=40, db_index=True, null=True, verbose_name='номер телефону')
+    phone = modelfields.PhoneNumberField(db_index=True, null=True, blank=False, verbose_name='номер телефону')
     email = models.EmailField(max_length=60, db_index=True, blank=True, null=True, verbose_name='емейл')
     address = models.TextField(max_length=160, null=True, verbose_name='адреса')
-    create_at = models.DateTimeField(auto_now_add=True, verbose_name='дата заповнення')
+    create_at = models.DateTimeField(auto_now_add=True, verbose_name='датою заповнення')
     update_at = models.DateTimeField(auto_now=True, verbose_name='дата оновлення')
 
     def __str__(self):
@@ -33,7 +34,7 @@ class Order(models.Model):
     ]
     order_status = models.CharField(max_length=2, choices=STATUS_CHOICES, default='NW', verbose_name='Статус')
     comment = models.TextField(max_length=240, blank=True, verbose_name='коментар')
-    create_at = models.DateTimeField(auto_now_add=True, verbose_name='дата заповнення')
+    create_at = models.DateTimeField(auto_now_add=True, verbose_name='датою заповнення')
     update_at = models.DateTimeField(auto_now=True, verbose_name='дата оновлення')
 
     def __str__(self):
