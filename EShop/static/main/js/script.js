@@ -33,10 +33,11 @@ $(function () {
       $('#addCart').attr('modal_product_id', product_data.id);
       $('#addCart').attr('modal_product_data', str_product_data);
 
-      if (localStorage.getItem(product_data.id) !== null) {
-        let value = localStorage.getItem(product_data.id);
-        product_data = JSON.parse(value);
-        $quantityNum.val(product_data.quantity);
+      let str_Cart = localStorage.getItem('Cart')
+      Cart = JSON.parse(str_Cart)
+
+      if (product_data.id in Cart) {
+        $quantityNum.val(Cart[product_data.id].quantity);
       } else {
         $quantityNum.val(1);
         addItem();
@@ -128,10 +129,10 @@ $(function () {
     $.each(Cart, function (product) {
       $CheckoutCart.append(
         '<div class="row align-items-center cart-item">' +
-          '<div class="col h6">' + Cart[product].name + '</div>' +
-          '<div class="col-2 px-0"><img src="' + Cart[product].image + '" class="card-img" alt=""></div>' +
-          '<div class="col-3">' + Cart[product].price + '₴</div>' +
-          '<div class="col-1 px-0">' + Cart[product].quantity + '</div>' +
+        '<div class="col h6">' + Cart[product].name + '</div>' +
+        '<div class="col-2 px-0"><img src="' + Cart[product].image + '" class="card-img" alt=""></div>' +
+        '<div class="col-3">' + Cart[product].price + '₴</div>' +
+        '<div class="col-1 px-0">' + Cart[product].quantity + '</div>' +
         '</div>'
       );
       total_price = total_price + (Cart[product].price * Cart[product].quantity);
@@ -140,15 +141,26 @@ $(function () {
     $totalPrice.text('Загальна вартість: ' + total_price.toFixed(2) + '₴');
   })();
 
-  //Передача даних корзини в форму перед відправкою на сервер.
-  // $('button[type=submit]').click(function(){
-  //   let str_Cart = localStorage.getItem('Cart');
-  //   let Cart = JSON.parse(str_Cart);
-  //   let clear_cart_data
-  //   $.each(Cart, function(id){
-  //     $(this).attr('cart-data')
-  //   })
-  // })
+  // Передача даних корзини в форму перед відправкою на сервер.
+  $('#checkout-form').submit(function (e) {
+    e.preventDefault();
+    let form_data = $(this).serialize();
+    console.log(form_data);
+    let Cart = JSON.parse(localStorage.getItem('Cart'));
+    for (let product in Cart) {
+      Cart[product] = Cart[product].quantity
+    }
+    console.log(form_data + '&Cart=' + JSON.stringify(Cart));
+    $.ajax({
+      type: "POST",
+      url: "/order/checkout/",
+      data: form_data + '&Cart=' + JSON.stringify(Cart),
+      success: function (response) {
+        alert(response)
+        window.location = "http://127.0.0.1:8000/products/";
+      }
+    });
+  });
 });
 
 

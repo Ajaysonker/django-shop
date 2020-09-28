@@ -32,6 +32,9 @@ input[type="number"]::-webkit-outer-spin-button {
 input[type="number"] {
   -moz-appearance: textfield;
 }
+html {
+    overflow-y: scroll;
+}
 .btn{
     font-weight: 500;
     font-size: 12px;

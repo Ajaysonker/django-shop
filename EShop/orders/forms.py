@@ -8,20 +8,18 @@ class CustomerForm(forms.ModelForm):
 
     class Meta:
         model = Customer
-        fields = ['first_name', 'last_name', 'phone', 'email', 'address']
+        fields = ['first_name', 'last_name', 'phone', 'email']
         labels = {
             'first_name': _("Ім'я"),
             'last_name': _("Фамілія"),
             'phone': _("Телефон"),
             'email': _("Email"),
-            'address': _("Адреса"),
         }
         widgets = {
             'first_name': forms.TextInput(attrs={'class': 'form-control', 'id': "inputFirst_name"}),
             'last_name': forms.TextInput(attrs={'class': 'form-control', 'id': "inputLast_name"}),
             'phone': widgets.TextInput(attrs={'class': 'form-control', 'id': "inputPhone"}),
             'email': forms.EmailInput(attrs={'class': 'form-control', 'id': "inputEmail"}),
-            'address': forms.Textarea(attrs={'class': 'form-control', 'id': "inputAddress", 'rows': 1}),
         }
 
 
@@ -29,10 +27,10 @@ class OrderForm(forms.ModelForm):
 
     class Meta:
         model = Order
-        fields = ['comment']
+        fields = ['delivery_city', 'np_warehouses', 'comment']
         labels = {
             'comment': _("Ваш коментар"),
         }
         widgets = {
-            'comment': forms.Textarea(attrs={'class': 'form-control', 'id': "Textarea1", 'rows': 3}),
+            'comment': forms.Textarea(attrs={'class': 'form-control', 'id': "Textarea1", 'rows': 4}),
         }

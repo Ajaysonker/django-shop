@@ -9,7 +9,6 @@ class Customer(models.Model):
     last_name = models.CharField(max_length=60, db_index=True, null=True, verbose_name="прізвище")
     phone = modelfields.PhoneNumberField(db_index=True, null=True, blank=False, verbose_name='номер телефону')
     email = models.EmailField(max_length=60, db_index=True, blank=True, null=True, verbose_name='емейл')
-    address = models.TextField(max_length=160, null=True, verbose_name='адреса')
     create_at = models.DateTimeField(auto_now_add=True, verbose_name='датою заповнення')
     update_at = models.DateTimeField(auto_now=True, verbose_name='дата оновлення')
 
@@ -23,6 +22,8 @@ class Customer(models.Model):
 
 class Order(models.Model):
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE, verbose_name='клієнт')
+    delivery_city = models.CharField(max_length=30, null=True, verbose_name='місто')
+    np_warehouses = models.CharField(max_length=100, null=True, verbose_name='адрес відділення')
     total_price = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name='загальна вартість замовлення')
     STATUS_CHOICES = [
         ('NW', 'Новий'),

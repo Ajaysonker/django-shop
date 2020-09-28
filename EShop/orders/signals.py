@@ -1,8 +1,7 @@
-from django.db.models.signals import post_delete
+from django.db.models.signals import post_delete, post_save
 from django.dispatch import receiver
 
 from .models import ProductInOrder
-
 
 @receiver(post_delete, sender=ProductInOrder)
 def post_delete_order_total_price(sender, instance, **kwargs):
